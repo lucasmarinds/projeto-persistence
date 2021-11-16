@@ -12,21 +12,24 @@ import java.math.BigDecimal;
 public class CadastroDePedido {
 
     public static void main(String[] args) {
-    EntityManager entityManager = JPAUtils.createEntityManager();
-    cadastrarProdutos();
-    ProdutoDAO produtoDAO = new ProdutoDAO(entityManager);
-    Produto produto = produtoDAO.produtoPorNome("MOTOROLA G00");
+        EntityManager entityManager = JPAUtils.createEntityManager();
+        cadastrarProdutos();
+        ProdutoDAO produtoDAO = new ProdutoDAO(entityManager);
+        Produto produto = produtoDAO.produtoPorNome("HEURI POTTI");
 
-    Cliente cliente = new Cliente("Lucas","37832870818");
-    Pedido pedido = new Pedido(cliente);
-    pedido.adicionarItem(new ItemPedido(3,produto,pedido));
-    PedidoDAO pedidoDAO = new PedidoDAO(entityManager);
-    ClienteDAO clienteDAO = new ClienteDAO(entityManager);
+        Cliente cliente = new Cliente("Lucas","37832870818");
+        Pedido pedido = new Pedido(cliente);
+        pedido.adicionarItem(new ItemPedido(3,produto,pedido));
+        PedidoDAO pedidoDAO = new PedidoDAO(entityManager);
+        ClienteDAO clienteDAO = new ClienteDAO(entityManager);
 
-    entityManager.getTransaction().begin();
-    clienteDAO.cadastrar(cliente);
-    pedidoDAO.cadastrar(pedido);
-    entityManager.getTransaction().commit();
+        entityManager.getTransaction().begin();
+        clienteDAO.cadastrar(cliente);
+        pedidoDAO.cadastrar(pedido);
+        entityManager.getTransaction().commit();
+        BigDecimal valorTotal = pedidoDAO.valorTotalVendido();
+        System.out.println(valorTotal);
+        
     }
 
     public static void cadastrarProdutos(){
@@ -48,5 +51,6 @@ public class CadastroDePedido {
         entityManager.persist(celularTres);
         entityManager.persist(livro);
         entityManager.getTransaction().commit();
+
     }
 }

@@ -20,7 +20,7 @@ public class Pedido {
     private Cliente cliente;
 
     @Column(name = "valor_total")
-    private BigDecimal valorTotal;
+    private BigDecimal valorTotal = BigDecimal.ZERO;
 
     /**
      * é Sempre necessário que tenha o mappedBy do lado sempre que tem o OneToMany com o nome do atributo
@@ -70,6 +70,7 @@ public class Pedido {
     }
 
     public void adicionarItem(ItemPedido item){
+        this.valorTotal = this.valorTotal.add(item.getValorTotal());
         item.setPedido(this);
         this.itens.add(item);
     }
