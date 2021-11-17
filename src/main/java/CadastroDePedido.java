@@ -8,6 +8,7 @@ import utils.JPAUtils;
 
 import javax.persistence.EntityManager;
 import java.math.BigDecimal;
+import java.util.List;
 
 public class CadastroDePedido {
 
@@ -28,8 +29,15 @@ public class CadastroDePedido {
         pedidoDAO.cadastrar(pedido);
         entityManager.getTransaction().commit();
         BigDecimal valorTotal = pedidoDAO.valorTotalVendido();
-        System.out.println(valorTotal);
-        
+        System.out.println("Valor total vendido: "+valorTotal);
+
+        List<Object[]> relatorioDeVenda = pedidoDAO.relatorioDeVenda();
+        relatorioDeVenda.forEach(registro -> {
+            System.out.println(registro[0]);
+            System.out.println(registro[1]);
+            System.out.println(registro[2]);
+        });
+
     }
 
     public static void cadastrarProdutos(){
