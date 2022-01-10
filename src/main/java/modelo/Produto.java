@@ -7,6 +7,7 @@ import java.math.BigDecimal;
 import java.time.LocalDateTime;
 
 @Entity
+@NamedQuery(name = "Produto.produtoPorCategoria", query = "SELECT po FROM Produto po where po.categoria.nome = :categoria")
 public class Produto {
 
     @Id
