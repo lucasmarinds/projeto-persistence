@@ -1,10 +1,8 @@
-import dao.CategoriaDAO;
-import dao.ClienteDAO;
-import dao.PedidoDAO;
-import dao.ProdutoDAO;
+import dao.*;
 import enums.ModeloCelular;
 import modelo.*;
 import utils.JPAUtils;
+import vo.RelatorioDeVendasVO;
 
 import javax.persistence.EntityManager;
 import java.math.BigDecimal;
@@ -37,11 +35,9 @@ public class CadastroDePedido {
         BigDecimal valorTotal = pedidoDAO.valorTotalVendido();
         System.out.println("Valor total vendido: "+valorTotal);
 
-        List<Object[]> relatorioDeVenda = pedidoDAO.relatorioDeVenda();
+        List<RelatorioDeVendasVO> relatorioDeVenda = pedidoDAO.relatorioDeVenda();
         relatorioDeVenda.forEach(registro -> {
-            System.out.println(registro[0]);
-            System.out.println(registro[1]);
-            System.out.println(registro[2]);
+            System.out.println(registro);
         });
 
     }

@@ -14,7 +14,7 @@ import java.math.BigDecimal;
 public class UpdateDeObjetoDetached {
     public static void main(String[] args) {
 
-        Categoria celulares = new Categoria("CELUNOLAR");
+        Categoria celulares = new Categoria("CELULAR");
         Produto celular = new Produto("IPHONE XR PRO MAX 28","Celular Bao",new BigDecimal("15500.00"), ModeloCelular.IPONE,celulares);
         EntityManager entityManager = JPAUtils.createEntityManager();
         CategoriaDAO categoriaDAO = new CategoriaDAO(entityManager);
@@ -23,6 +23,7 @@ public class UpdateDeObjetoDetached {
         entityManager.getTransaction().begin();
         entityManager.persist(celulares);
         entityManager.persist(celular);
+        // entityManager.clear(); // se deixar sem comentar essa linha o clear não deixará que o objeto seja atualizado para xiaomi 9T. pois depois do clear ele está já como detached.
         celular.setNome("XIAOMI 9T");
         entityManager.flush();
         entityManager.clear();

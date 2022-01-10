@@ -1,7 +1,7 @@
 package dao;
 
 import modelo.Pedido;
-import modelo.Produto;
+import vo.RelatorioDeVendasVO;
 
 import javax.persistence.EntityManager;
 import java.math.BigDecimal;
@@ -31,15 +31,16 @@ public class PedidoDAO {
      * será uma posição do array cada registro tera 3 valores dentro do array.
      * @return retorna uma lista de array de object em que registro vai ser um array de object e cada valor do array é uma coluna.
      */
-    public List<Object[]> relatorioDeVenda(){
-        String jpql = "SELECT produto.nomeProduto, " +
+    public List<RelatorioDeVendasVO> relatorioDeVenda(){
+        String jpql = "SELECT new vo.RelatorioDeVendasVO(" +
+                "produto.nomeProduto, " +
                 "SUM(item.quantidade), " +
-                "MAX(pedido.data) " +
+                "MAX(pedido.data))" +
                 "FROM Pedido pedido " +
                 "JOIN pedido.itens item " +
                 "JOIN item.produto produto " +
                 "GROUP BY produto.nomeProduto " +
                 "ORDER BY item.quantidade DESC";
-        return entityManager.createQuery(jpql, Object[].class).getResultList();
+        return entityManager.createQuery(jpql, RelatorioDeVendasVO.class).getResultList();
     }
 }
