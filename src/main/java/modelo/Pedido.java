@@ -16,7 +16,7 @@ public class Pedido {
 
     private LocalDateTime data = LocalDateTime.now();
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     private Cliente cliente;
 
     @Column(name = "valor_total")
@@ -73,5 +73,9 @@ public class Pedido {
         this.valorTotal = this.valorTotal.add(item.getValorTotal());
         item.setPedido(this);
         this.itens.add(item);
+    }
+
+    public List<ItemPedido> getItens(){
+        return itens;
     }
 }

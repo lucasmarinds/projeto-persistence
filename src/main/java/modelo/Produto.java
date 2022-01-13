@@ -29,7 +29,18 @@ public class Produto {
     @Column(name = "modelo_celular")
     private ModeloCelular modeloCelular;
 
-    @ManyToOne
+    /**
+     * A importancia de colocar esse parametro na Anotação é para que quando seja feito um select nessa classe
+     * o JPA não faça um select na tabela Categoria, porque o comportamento EAGER que é o padrão que segue as anotações
+     * @algumaToOne faz com que quando chamar essa tabela, o jpa automaticamente faça um join nela também e se houver
+     * outras tabelas dentro da tabela Categoria que também são @algumaToOne vai realizar um join neles também, gerando
+     * muita usabilidade, fazendo ser custosa o uso de qualquer método DAO(data access object) dessa entidade, isso é
+     * igual um efeito cascade que vai descendo e fazendo o mesmo para todos se colocarmos o comportamento Lazy, ele
+     * não vai agir dessa maneira mudando seu comportamento para agir igual as anotações do tipo @algumaToMany,
+     * que para ser feito um join com a tabela APENAS se o DAO ou parte da Aplicação chamar esse parametro que é uma
+     * outra table.
+     */
+    @ManyToOne(fetch = FetchType.LAZY)
     private Categoria categoria;
 
     public Produto(){}
