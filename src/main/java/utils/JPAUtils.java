@@ -7,7 +7,7 @@ import javax.persistence.Persistence;
 public class JPAUtils {
 
     public static EntityManager createEntityManager(){
-        EntityManagerFactory entityManagerFactory = Persistence.createEntityManagerFactory("loja");
+        EntityManagerFactory entityManagerFactory = Persistence.createEntityManagerFactory("h2db");
         return entityManagerFactory.createEntityManager();
     }
 }

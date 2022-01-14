@@ -43,4 +43,19 @@ public class PedidoDAO {
                 "ORDER BY item.quantidade DESC";
         return entityManager.createQuery(jpql, RelatorioDeVendasVO.class).getResultList();
     }
+
+    /**
+     * Esse tipo de busca que colocamos o JOIN FETCH serve para que caso seja fechado a conexão do entityManager
+     * a gente ainda consiga trazer junto com a busca do pedido o carregamento do cliente sem que precisemos ter
+     * que criar outro método para carregar o cliente, ou adicionar mais código antes do fechamento do entityManager e
+     * o pior que seria tirar o fetch lazy da entidade Cliente porque se tirarmos toda consulta vai carregar essa tabela
+     * e isso fica custoso como vimos na hora de colocarmos esse parametro nas anotações que são @ToOne.
+     * @param id
+     * @return
+     */
+    public Pedido buscarPedidoPeloCliente(Long id) {
+        return entityManager.createQuery("SELECT p FROM Pedido p JOIN FETCH p.cliente WHERE p.id = :id ",Pedido.class)
+                .setParameter("id",id)
+                .getSingleResult();
+    }
 }

@@ -14,9 +14,37 @@ import java.util.List;
 public class PerformanceConsultas {
     public static void main(String[] args) {
         EntityManager entityManager = JPAUtils.createEntityManager();
-        cadastrarProdutos();
+        cadastrarProdutos(entityManager);
 
+        Pedido pedidoDois = entityManager.find(Pedido.class,1l);
+
+        entityManager.close();
+
+        System.out.println(pedidoDois.getCliente().getNome());
+
+    }
+
+    public static void cadastrarProdutos(EntityManager entityManager){
+        Categoria celulares = new Categoria("CELULAR");
+        Categoria livraria = new Categoria("LIVRO");
+        Categoria eletronico = new Categoria("ELETRONICOS");
+        Produto xbox = new Produto("Xbox SS","Celular BAO",new BigDecimal("2000.00"), null,eletronico);
+        Produto playstation = new Produto("Playstation 5","Celular BAD",new BigDecimal("4100.00"), null,eletronico);
+        Produto celular = new Produto("IPHONE 11 PRO","Celular TOPPER",new BigDecimal("4500.00"), ModeloCelular.IPONE,celulares);
+        Produto livro = new Produto("HEURI POTTI","COMO SER PEPERONI",new BigDecimal("8000.00"), null,livraria);
+        CategoriaDAO categoriaDAO = new CategoriaDAO(entityManager);
         ProdutoDAO produtoDAO = new ProdutoDAO(entityManager);
+
+        entityManager.getTransaction().begin();
+        entityManager.persist(celulares);
+        entityManager.persist(livraria);
+        entityManager.persist(eletronico);
+        entityManager.persist(celular);
+        entityManager.persist(playstation);
+        entityManager.persist(xbox);
+        entityManager.persist(livro);
+        entityManager.getTransaction().commit();
+
         Produto produto = produtoDAO.produtoPorNome("HEURI POTTI");
         Produto produtoDois = produtoDAO.produtoPorNome("Playstation 5");
         Produto produtoTres = produtoDAO.produtoPorNome("Xbox SS");
@@ -32,34 +60,6 @@ public class PerformanceConsultas {
         entityManager.getTransaction().begin();
         clienteDAO.cadastrar(cliente);
         pedidoDAO.cadastrar(pedido);
-        entityManager.getTransaction().commit();
-
-        Pedido pedidoDois = entityManager.find(Pedido.class,1l);
-
-        System.out.println(pedidoDois);
-
-    }
-
-    public static void cadastrarProdutos(){
-        Categoria celulares = new Categoria("CELULAR");
-        Categoria livraria = new Categoria("LIVRO");
-        Categoria eletronico = new Categoria("ELETRONICOS");
-        Produto xbox = new Produto("Xbox SS","Celular BAO",new BigDecimal("2000.00"), null,eletronico);
-        Produto playstation = new Produto("Playstation 5","Celular BAD",new BigDecimal("4100.00"), null,eletronico);
-        Produto celular = new Produto("IPHONE 11 PRO","Celular TOPPER",new BigDecimal("4500.00"), ModeloCelular.IPONE,celulares);
-        Produto livro = new Produto("HEURI POTTI","COMO SER PEPERONI",new BigDecimal("8000.00"), null,livraria);
-        EntityManager entityManager = JPAUtils.createEntityManager();
-        CategoriaDAO categoriaDAO = new CategoriaDAO(entityManager);
-        ProdutoDAO produtoDAO = new ProdutoDAO(entityManager);
-
-        entityManager.getTransaction().begin();
-        entityManager.persist(celulares);
-        entityManager.persist(livraria);
-        entityManager.persist(eletronico);
-        entityManager.persist(celular);
-        entityManager.persist(playstation);
-        entityManager.persist(xbox);
-        entityManager.persist(livro);
         entityManager.getTransaction().commit();
 
     }
