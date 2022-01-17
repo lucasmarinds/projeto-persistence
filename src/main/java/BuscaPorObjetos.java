@@ -49,5 +49,11 @@ public class BuscaPorObjetos {
         precosDosProdutos.forEach(preco -> {
             System.out.println(preco);
         });
+
+        System.out.println("Teste com criteria.");
+        List<Produto> produtoTesteCriteria = produtoDAO.buscarPorParametrosComCriteria(null,null);
+        produtoTesteCriteria.forEach(produto -> {
+            System.out.println(produto.getNome());
+        });
     }
 }
