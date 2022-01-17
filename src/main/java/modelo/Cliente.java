@@ -1,9 +1,6 @@
 package modelo;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
 
 @Entity
 public class Cliente {
@@ -12,15 +9,14 @@ public class Cliente {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    private String nome;
-
-    private String cpf;
+    @Embedded
+    private DadosPessoais dadosPessoais;
 
     public Cliente(){}
 
     public Cliente(String nome, String cpf) {
-        this.nome = nome;
-        this.cpf = cpf;
+        this.dadosPessoais.setNome(cpf);
+        this.dadosPessoais.setNome(nome);
     }
 
     public Long getId() {
@@ -32,18 +28,18 @@ public class Cliente {
     }
 
     public String getNome() {
-        return nome;
+        return dadosPessoais.getNome();
     }
 
     public void setNome(String nome) {
-        this.nome = nome;
+        this.dadosPessoais.setNome(nome);
     }
 
     public String getCpf() {
-        return cpf;
+        return dadosPessoais.getCpf();
     }
 
     public void setCpf(String cpf) {
-        this.cpf = cpf;
+        this.dadosPessoais.setCpf(cpf);
     }
 }
