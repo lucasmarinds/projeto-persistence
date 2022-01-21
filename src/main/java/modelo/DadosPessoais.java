@@ -8,11 +8,11 @@ public class DadosPessoais {
 
     public DadosPessoais(){}
 
+    @Column(name = "TESTE_NOME")
     private String nome;
 
     private String cpf;
 
-    @Column(name = "TESTE_NOME")
     public String getNome() {
         return nome;
     }
