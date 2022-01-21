@@ -8,7 +8,7 @@ import java.time.LocalDateTime;
 
 @Entity
 @NamedQuery(name = "Produto.produtoPorCategoria", query = "SELECT po FROM Produto po where po.categoria.nome = :categoria")
-@Inheritance(strategy = InheritanceType.TABLE_PER_CLASS)
+@Inheritance(strategy = InheritanceType.JOINED)
 public class Produto {
 
     @Id
