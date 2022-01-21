@@ -1,5 +1,6 @@
 package modelo;
 
+import javax.persistence.Column;
 import javax.persistence.Embeddable;
 
 @Embeddable
@@ -11,6 +12,7 @@ public class DadosPessoais {
 
     private String cpf;
 
+    @Column(name = "TESTE_NOME")
     public String getNome() {
         return nome;
     }

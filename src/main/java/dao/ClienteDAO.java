@@ -15,4 +15,12 @@ public class ClienteDAO {
     public void cadastrar(Cliente cliente){
         this.entityManager.persist(cliente);
     }
+
+    public String pegarPorNome(String nomeCliente) {
+        String query = "SELECT c FROM Cliente c WHERE c.dadosPessoais.nome = :nome";
+        Cliente cliente = this.entityManager.createQuery(query, Cliente.class)
+                .setParameter("nome",nomeCliente)
+                .getSingleResult();
+        return cliente.getNome();
+    }
 }

@@ -10,7 +10,7 @@ public class Cliente {
     private Long id;
 
     @Embedded
-    private DadosPessoais dadosPessoais;
+    private DadosPessoais dadosPessoais = new DadosPessoais();
 
     public Cliente(){}
 
